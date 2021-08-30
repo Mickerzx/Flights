@@ -5,6 +5,7 @@ import {fetchFlightRequest} from "../../store/actions/action";
 import {RootState} from "../../index";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {RouteComponentProps} from 'react-router-dom';
+import './Flights.css'
 
 
 const Flights: React.FC<RouteComponentProps> = ({match}) => {
@@ -28,7 +29,10 @@ const Flights: React.FC<RouteComponentProps> = ({match}) => {
 
     return (
         <>
-            {data.loading ? <Spinner/> : <FlightsTable data={data.flights} admin={admin}/>}
+            {data.loading ? <Spinner/> :<>
+                <h1 className='header'>Прилеты</h1>
+                <FlightsTable data={data.flights} admin={admin}/>
+                </> }
         </>
     );
 };

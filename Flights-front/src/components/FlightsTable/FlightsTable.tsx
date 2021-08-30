@@ -29,7 +29,7 @@ const FlightsTable: React.FC<FlightsTableProps> = ({data, admin}) => {
 
     return (
         <div>
-            <Table striped className='flight-table mt-5'>
+            <Table striped className='flight-table mt-3'>
                 <thead>
                 <tr>
                     <th>Номер рейса</th>
