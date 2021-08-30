@@ -7,7 +7,9 @@ const MainNav = () => {
 
     const toggle = () => setIsOpen(!isOpen);
 
-    const [admin, setAdmin] = useState(false);
+    const [login, setLogin] = useState(true);
+
+    const auth = () => setLogin(!login);
 
 
     return (
@@ -17,13 +19,11 @@ const MainNav = () => {
                 <NavbarToggler onClick={toggle}/>
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ms-auto" navbar>
-                        {admin ? <NavItem>
-                            <NavLink className="text-white" tag={RouterNavLink} to='/flight/new'>Create new
-                                flight</NavLink>
-                        </NavItem> : <NavItem>
-                            <NavLink onClick={() => setAdmin(true)} className="text-white" tag={RouterNavLink}
-                                     to='/admin'>Admin</NavLink>
-                        </NavItem>}
+                        <NavItem>
+                            <NavLink onClick={auth}
+                                     className="text-white" tag={RouterNavLink}
+                                     to={login ? '/admin' : '/'}>{login ? 'Login' : 'Logout'}</NavLink>
+                        </NavItem>
                     </Nav>
                 </Collapse>
             </Navbar>

@@ -1,6 +1,6 @@
 import React from 'react';
-import {Table} from 'reactstrap';
-import {NavLink} from "react-router-dom";
+import {Button, Table} from 'reactstrap';
+import {NavLink as RouterNavLink, NavLink} from "react-router-dom";
 import './FlightTable.css'
 
 interface FlightsTableProps {
@@ -29,6 +29,7 @@ const FlightsTable: React.FC<FlightsTableProps> = ({data, admin}) => {
 
     return (
         <div>
+            {admin? <Button className="offset-10" tag={RouterNavLink} to='/flight/new'>Создать новый рейс</Button>:null}
             <Table striped className='flight-table mt-3'>
                 <thead>
                 <tr>
@@ -61,7 +62,8 @@ const FlightsTable: React.FC<FlightsTableProps> = ({data, admin}) => {
                         <td>{flight.actualArrivalTime}</td>
                         <td>{flight.status}</td>
                         <td>{flight.comment}</td>
-                        {admin ? <td><NavLink to={'/flight/' + flight._id + '/edit'}> Edit</NavLink></td> : null}
+                        {admin ? <td><NavLink className='edit' to={'/flight/' + flight._id + '/edit'}>
+                            <i className="far fa-edit"/></NavLink></td> : null}
                     </tr>))}
                 </tbody>
             </Table>
