@@ -1,50 +1,51 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {
-    createFlightFailure,
-    editFlightFailure, editFlightRequest, editFlightSuccess,
-    fetchFlightFailure,
-    fetchFlightRequest,
-    fetchFlightSuccess
-} from "../actions/action";
+import {FlightActions} from "../actions/action";
+import {FlightState} from "./types";
 
-export type initialStateType = {
-    loading: boolean,
-    flights:object[]
-    error: null | string
-};
 
-const initialState = {
+const initialState: FlightState = {
     loading: true,
     flights: [],
     error: null
 };
 
+export default createReducer(initialState, builder => {
+    builder.addCase(FlightActions.fetchFlightRequest, (state) => ({
+        ...state,
+        loading: true,
+    }))
 
-export default createReducer(initialState, {
+    builder.addCase(FlightActions.fetchFlightSuccess, (state, action) => ({
+        ...state,
+        loading: false,
+        flights: action.payload
+    }))
 
-    [fetchFlightRequest]: (state) => {
-        state.loading = true;
-    },
-    [fetchFlightSuccess]: (state, action) => {
-        state.loading = false
-        state.flights = action.payload
-    },
-    [fetchFlightFailure]: (state, action) => {
-        state.loading = false;
-        state.error = action.payload
-    },
-    [editFlightRequest]: (state) => {
-        state.loading = true;
-    },
-    [editFlightSuccess]: (state) => {
-        state.loading = false;
-    },
-    [editFlightFailure]: (state, action) => {
-        state.loading = false;
-        state.error = action.payload
-    },
-    [createFlightFailure]: (state, action) => {
-        state.loading = false;
-        state.error = action.payload
-    },
+    builder.addCase(FlightActions.fetchFlightFailure, (state, action) => ({
+        ...state,
+        loading: false,
+        error: action.payload
+    }))
+
+    builder.addCase(FlightActions.editFlightRequest, (state) => ({
+        ...state,
+        loading: true,
+    }))
+
+    builder.addCase(FlightActions.editFlightSuccess, (state) => ({
+        ...state,
+        loading: false,
+    }))
+
+    builder.addCase(FlightActions.editFlightFailure, (state, action) => ({
+        ...state,
+        loading: false,
+        error: action.payload
+    }))
+
+    builder.addCase(FlightActions.createFlightFailure, (state, action) => ({
+        ...state,
+        loading: false,
+        error: action.payload
+    }))
 })

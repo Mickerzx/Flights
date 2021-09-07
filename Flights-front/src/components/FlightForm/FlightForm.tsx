@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {useDispatch} from "react-redux";
-import {createFlightRequest, deleteFlightRequest, editFlightRequest} from "../../store/actions/action";
+import {FlightActions} from "../../store/actions/action";
 import {useHistory} from "react-router";
 import './FlightForm.css'
+import {Flights} from "../../store/reducer/types";
 
 interface FlightFormProps {
-    data?: any;
+    data?: Flights;
 }
 
 export type formStateType = {
@@ -56,8 +57,8 @@ const FlightForm: React.FC<FlightFormProps> = ({data}) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        dispatch(createFlightRequest(formState))
-        history.push('/')
+        dispatch(FlightActions.createFlightRequest(formState))
+        history.push('/admin')
     }
 
     const handleCanceled = () => {
@@ -65,12 +66,12 @@ const FlightForm: React.FC<FlightFormProps> = ({data}) => {
     }
 
     const edit = () => {
-        dispatch(editFlightRequest(formState))
+        dispatch(FlightActions.editFlightRequest(formState))
         history.push('/admin')
     }
 
     const handleDelete = () => {
-        dispatch(deleteFlightRequest(formState))
+        dispatch(FlightActions.deleteFlightRequest(formState))
         history.push('/admin')
     }
 

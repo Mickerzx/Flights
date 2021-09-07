@@ -2,9 +2,10 @@ import React from 'react';
 import {Button, Table} from 'reactstrap';
 import {NavLink as RouterNavLink, NavLink} from "react-router-dom";
 import './FlightTable.css'
+import {Flights} from "../../store/reducer/types";
 
 interface FlightsTableProps {
-    data: any;
+    data: Array<Flights> ;
     admin: boolean;
 }
 

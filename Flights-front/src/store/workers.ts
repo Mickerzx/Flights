@@ -1,36 +1,33 @@
 import axiosApi from "../axiosApi";
-import {
-    deleteFlightFailure,
-    deleteFlightSuccess,
-    editFlightFailure,
-    editFlightSuccess,
-    fetchFlightFailure,
-    fetchFlightSuccess
-} from "./actions/action";
+import {FlightActions} from "./actions/action";
 
 import {put} from 'redux-saga/effects'
+import {Flights} from "./reducer/types";
 
 interface IResponse {
-    data?: any;
+    data?: Flights;
 }
+
 
 export function* fetchFlightWorker() {
     try {
         const response: IResponse = yield axiosApi.get('/flights')
-        yield put(fetchFlightSuccess(response.data))
+        yield put(FlightActions.fetchFlightSuccess(response.data))
     } catch (error) {
-        yield put(fetchFlightFailure(error))
+        yield put(FlightActions.fetchFlightFailure(error))
     }
 
 }
 
-export function* editFlightWorker(data: any) {
+export function* editFlightWorker(data:any) {
+
+    console.log('watchers', data)
 
     try {
         yield axiosApi.put('/flights', data.payload)
-        yield put(editFlightSuccess())
+        yield put(FlightActions.editFlightSuccess())
     } catch (error) {
-        yield put(editFlightFailure(error))
+        yield put(FlightActions.editFlightFailure(error))
     }
 
 }
@@ -39,9 +36,9 @@ export function* createFlightWorker(data: any) {
 
     try {
         yield axiosApi.post('/flights', data.payload)
-        yield put(editFlightSuccess())
+        yield put(FlightActions.editFlightSuccess())
     } catch (error) {
-        yield put(editFlightFailure(error))
+        yield put(FlightActions.editFlightFailure(error))
     }
 
 }
@@ -50,9 +47,9 @@ export function* deleteFlightWorker(data: any) {
 
     try {
         yield axiosApi.delete('http://localhost:8000/flights/' + data.payload._id)
-        yield put(deleteFlightSuccess())
+        yield put(FlightActions.deleteFlightSuccess())
     } catch (error) {
-        yield put(deleteFlightFailure(error))
+        yield put(FlightActions.deleteFlightFailure(error))
     }
 
 }

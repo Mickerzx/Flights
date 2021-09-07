@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import FlightsTable from "../../components/FlightsTable/FlightsTable";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchFlightRequest} from "../../store/actions/action";
+import {FlightActions} from "../../store/actions/action";
 import {RootState} from "../../index";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {RouteComponentProps} from 'react-router-dom';
@@ -15,7 +15,7 @@ const Flights: React.FC<RouteComponentProps> = ({match}) => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            dispatch(fetchFlightRequest())
+            dispatch(FlightActions.fetchFlightRequest())
         }, 1000);
         return () => clearTimeout(timer);
     }, []);
