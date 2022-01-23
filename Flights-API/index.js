@@ -12,7 +12,7 @@ app.use(cors());
 
 const run = async () => {
 
-    await mongoose.connect('mongodb://localhost/flights')
+    await mongoose.connect('mongodb://db/flights')
 
     app.use('/flights', flights);
 
